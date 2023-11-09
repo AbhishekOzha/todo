@@ -28,7 +28,7 @@ function Home() {
   const [todos, setTodos] = useState([]);
 
   const fetchTodoItems = () => {
-    TodoService.fetchTodo()
+    TodoService.fetchTodos()
       .then((response) => {
         setTodos(response.data);
       })
