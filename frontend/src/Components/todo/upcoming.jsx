@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import { Paper, Button, TextField } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
+import TodoService from './actions/todoaction';
 
 function UpcomingBox({ todo, editTodo, deleteTodo, onCommentSubmit }) {
   const [isCommenting, setIsCommenting] = useState(false);
@@ -86,15 +87,12 @@ function Upcoming() {
   }, []);
 
   const fetchTodoItems = () => {
-    axios
-      .get('http://localhost:7000/api/upcoming/')
+    TodoService.fetchUpcomingTodos()
       .then((response) => {
         setTodos(response.data);
       })
-      .catch((error) => {
-        console.error('Error fetching todo items:', error);
-      });
   };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -105,8 +103,7 @@ function Upcoming() {
   };
 
   const createTodo = () => {
-    axios
-      .post('http://localhost:7000/api/todos/', newTodo)
+    TodoService.createTodo(newTodo)
       .then(() => {
         fetchTodoItems();
         setNewTodo({

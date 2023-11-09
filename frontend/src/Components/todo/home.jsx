@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import TodoService from './actions/todoaction';
 
 function UpcomingBox({ todo, }) {
   const boxStyle = {
@@ -27,14 +28,10 @@ function Home() {
   const [todos, setTodos] = useState([]);
 
   const fetchTodoItems = () => {
-    axios
-      .get('http://localhost:7000/api/todos/')
+    TodoService.fetchTodo()
       .then((response) => {
         setTodos(response.data);
       })
-      .catch((error) => {
-        console.error('Error fetching todo items:', error);
-      });
   };
 
   useEffect(() => {
